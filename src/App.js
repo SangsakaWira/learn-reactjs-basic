@@ -1,30 +1,29 @@
-import { useState } from "react"
+import { useState } from "react";
 
-// Function Component
 function App() {
 
-  let [data,setData] = useState({
-    counter1:1,
-    counter2:2,
-    counter3:3
-  })
-
-  function handleData(event){
-    let property = event.target.id
-    let value = parseInt(event.target.textContent)
-    value++
-    setData({
-      ...data,
-      [property]:value
-    })
+  let [colors, setColors] = useState([])
+  
+  function handleClick(){
+    const randomColors = ['red','green','blue']
+    setColors([...colors,{
+      nama:randomColors[Math.floor(Math.random()*randomColors.length)]
+    }])
+    console.log(colors)
   }
 
-  // Dirender 1x saja didepan
-  return <div>
-    <h1 id="counter1" onClick={handleData} >{data.counter1}</h1>
-    <h1 id="counter2" onClick={handleData} >{data.counter2}</h1>
-    <h1 id="counter3" onClick={handleData} >{data.counter3}</h1>
-  </div>
+  return <>
+    {colors.map((color, index) => {
+      return (
+          <div key={index}>
+            <p style={{color:color.nama}}>{color.nama}</p>
+          </div>
+      )
+    })}
+          <button onClick={handleClick}>
+            Generate Color
+          </button>
+  </>
 }
 
 export default App;
